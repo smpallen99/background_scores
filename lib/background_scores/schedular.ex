@@ -76,4 +76,5 @@ defmodule BackgroundScores.Scheduler do
 
   defp update_state(scores, state), do: Map.put(state, :scores, scores)
 
+
 end
