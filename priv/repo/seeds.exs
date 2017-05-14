@@ -9,3 +9,8 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will halt execution if something goes wrong.
+alias BackgroundScores.{Repo, Score}
+
+Repo.delete_all Score
+Repo.insert! Score.changeset(%Score{}, %{scores: %{}})
+

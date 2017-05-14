@@ -2,6 +2,9 @@
 
 Sample project for running a background task within a phoenix project.
 
+This version uses `Quantum` package to scheule the scores fetch task.
+The old scores are stored in a database.
+
 To start your Phoenix app:
 
   * Install dependencies with `mix deps.get`

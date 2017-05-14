@@ -12,7 +12,6 @@ defmodule BackgroundScores do
       supervisor(BackgroundScores.Repo, []),
       # Start the endpoint when the application starts
       supervisor(BackgroundScores.Endpoint, []),
-      worker(BackgroundScores.Scheduler, [[period: 5000]])
       # Start your own worker by calling: BackgroundScores.Worker.start_link(arg1, arg2, arg3)
       # worker(BackgroundScores.Worker, [arg1, arg2, arg3]),
     ]

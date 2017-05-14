@@ -17,7 +17,7 @@ defmodule BackgroundScores.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {BackgroundScores, []},
-     extra_applications: [:logger]]
+     extra_applications: [:logger, :quantum]]
   end
 
   # Specifies which paths to compile per environment.
@@ -35,6 +35,7 @@ defmodule BackgroundScores.Mixfile do
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
+     {:quantum, ">= 1.9.1"},
      {:cowboy, "~> 1.0"}]
   end
 
