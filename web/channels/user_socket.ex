@@ -2,7 +2,7 @@ defmodule BackgroundScores.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", BackgroundScores.RoomChannel
+  channel "scores:*", BackgroundScores.ScoresChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

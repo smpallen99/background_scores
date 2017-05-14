@@ -43,11 +43,13 @@ defmodule BackgroundScores.Scheduler do
   end
 
   defp poll_scores do
+    # Simulate the results of fetching scores from an external API
     count = :random.uniform 3
     users =
       for _ <- 1..count do
         Enum.random @sample_users
       end
+    # Turn the users and scores into a Keyword list. username is the key
     Enum.zip(users, random_scores(count))
   end
 
@@ -56,20 +58,19 @@ defmodule BackgroundScores.Scheduler do
   end
 
   defp compare_scores(new_scores, old_scores) do
-    if :random.uniform(1) == 0 do
-      {Keyword.equal?(new_scores, old_scores), new_scores, old_scores}
-    else
-      {true, old_scores, old_scores}
-    end
+    {Keyword.equal?(new_scores, old_scores), new_scores, old_scores}
   end
 
   defp notify_client({true, _, old_scores}) do
-    Logger.debug "no change"
+    # no change
     old_scores
   end
   defp notify_client({false, new_scores, old_scores}) do
     # this is where you will call your channel to update the scores
-    Logger.debug "change old_scores: #{inspect old_scores}, new_scores: #{inspect new_scores}"
+
+    # Channel data must be a map. So convert the keyword list into a map
+    BackgroundScores.Endpoint.broadcast! "scores:lobby", "update", Enum.into(new_scores, %{})
+     
     new_scores
   end
 
