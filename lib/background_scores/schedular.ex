@@ -56,11 +56,11 @@ defmodule BackgroundScores.Scheduler do
   end
 
   defp compare_scores(new_scores, old_scores) do
-    if :random.uniform(1) == 0 do
+    # if :random.uniform(1) == 0 do
       {Keyword.equal?(new_scores, old_scores), new_scores, old_scores}
-    else
-      {true, old_scores, old_scores}
-    end
+    # else
+      # {true, old_scores, old_scores}
+    # end
   end
 
   defp notify_client({true, _, old_scores}) do
@@ -70,9 +70,12 @@ defmodule BackgroundScores.Scheduler do
   defp notify_client({false, new_scores, old_scores}) do
     # this is where you will call your channel to update the scores
     Logger.debug "change old_scores: #{inspect old_scores}, new_scores: #{inspect new_scores}"
+    BackgroundScores.Endpoint.broadcast! "scores:lobby", "update", Enum.into(new_scores, %{})
+     
     new_scores
   end
 
   defp update_state(scores, state), do: Map.put(state, :scores, scores)
+
 
 end
